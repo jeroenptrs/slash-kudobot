@@ -129,18 +129,18 @@ module.exports = (ctx, cb) => {
             else if(cmds[0].toLowerCase() === 'admin' && cmds[1].toLowerCase() === 'init'){
                 if(data === undefined) {
                     data = {};
-                    data.admin[data.ctx.user_name] = true;
-                    return cb(null, { text: `<@${ctx.user_name}> is now admin.` });
+                    data.admin[ctx.body.user_name] = true;
+                    return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
                 }
                 else if (data.admin == null){
-                    data.admin[data.ctx.user_name] = true;
-                    return cb(null, { text: `<@${ctx.user_name}> is now admin.` });
+                    data.admin[ctx.body.user_name] = true;
+                    return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
                 }
                 else return cb(null, { text: `An admin has already been set` });
             }
 
             //Enable/disable negative kudos (so /kudo @user --). Disabled on standard and needs an admin to activate.
-            else if(cmds[0].toLowerCase() === 'admin' && cmds[1] === '--' && (data.admin != null && data.admin[user] === true)){
+            else if(cmds[0].toLowerCase() === 'admin' && cmds[1] === '--' && (data.admin != null && data.admin[ctx.body.user_name] === true)){
                 if(data.minmin == null || data.minmin !== true){
                     data.minmin = true;
                     return cb(null, { text: `Negative kudos have been activated.` });
