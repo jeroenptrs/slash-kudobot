@@ -10,7 +10,7 @@ module.exports = (ctx, cb) => {
             if(cmds[0].toLowerCase() === 'all'){
 
                 //If kudos have been set
-                if(data !== undefined) {
+                if(data !== undefined && data.users != null) {
                     //Keys = usernames!
                     var k = Object.keys(data), attachments = [];
 
@@ -65,6 +65,8 @@ module.exports = (ctx, cb) => {
                     data.users[u] = 1;
                 }
 
+                else if (data.users == null){ data.users = {}; data.users[u] = 1; }
+
                 //Is this the first time we're adding to this user?
                 else if (data.users[u] == null) { data.users[u] = 1; }
 
@@ -95,6 +97,8 @@ module.exports = (ctx, cb) => {
                     data.users[u] = -1;
                 }
 
+                else if (data.users == null){ data.users = {}; data.users[u] = -1; }
+
                 //Is this the first time we're adding to this user?
                 else if (data.users[u] == null) { data.users[u] = -1; }
 
@@ -115,7 +119,7 @@ module.exports = (ctx, cb) => {
                 //Store user name for quick use.
                 var u = cmds[0];
 
-                if (data === undefined || data.users[u] == null){
+                if (data === undefined || data.users == null || data.users[u] == null){
                     return cb(null, { response_type: "in_channel", text: `<${cmds[0]}> has no kudos.` });
                 }
 
