@@ -130,12 +130,22 @@ module.exports = (ctx, cb) => {
                 if(data === undefined) {
                     data = {admin: {}};
                     data.admin[ctx.body.user_name] = true;
-                    return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
+
+                    //Store that shit!
+                    ctx.storage.set(data, function (error) {
+                        if (error) return cb(error);
+                        return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
+                    });
                 }
                 else if (data.admin == null){
                     data.admin = {};
                     data.admin[ctx.body.user_name] = true;
-                    return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
+
+                    //Store that shit!
+                    ctx.storage.set(data, function (error) {
+                        if (error) return cb(error);
+                        return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
+                    });
                 }
                 else return cb(null, { text: `An admin has already been set` });
             }
@@ -144,11 +154,21 @@ module.exports = (ctx, cb) => {
             else if(cmds[0].toLowerCase() === 'admin' && cmds[1] === '--' && (data.admin != null && data.admin[ctx.body.user_name] === true)){
                 if(data.minmin == null || data.minmin !== true){
                     data.minmin = true;
-                    return cb(null, { text: `Negative kudos have been activated.` });
+
+                    //Store that shit!
+                    ctx.storage.set(data, function (error) {
+                        if (error) return cb(error);
+                        return cb(null, { text: `Negative kudos have been activated.` });
+                    });
                 }
                 else {
                     data.minmin = false;
-                    return cb(null, { text: `Negative kudos have been deactivated.` });
+
+                    //Store that shit!
+                    ctx.storage.set(data, function (error) {
+                        if (error) return cb(error);
+                        return cb(null, { text: `Negative kudos have been deactivated.` });
+                    });
                 }
             }
 
