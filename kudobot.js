@@ -128,11 +128,12 @@ module.exports = (ctx, cb) => {
             //Set an admin, for now it's just one.
             else if(cmds[0].toLowerCase() === 'admin' && cmds[1].toLowerCase() === 'init'){
                 if(data === undefined) {
-                    data = {};
+                    data = {admin: {}};
                     data.admin[ctx.body.user_name] = true;
                     return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
                 }
                 else if (data.admin == null){
+                    data.admin = {};
                     data.admin[ctx.body.user_name] = true;
                     return cb(null, { text: `<@${ctx.body.user_name}> is now admin.` });
                 }
