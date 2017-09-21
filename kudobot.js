@@ -12,7 +12,7 @@ module.exports = (ctx, cb) => {
                 //If kudos have been set
                 if(data !== undefined && data.users != null) {
                     //Keys = usernames!
-                    var k = Object.keys(data), attachments = [];
+                    var k = Object.keys(data.users), attachments = [];
 
                     //Set attachment data with all keys.
                     for(i = 0; i < k.length; i++){
